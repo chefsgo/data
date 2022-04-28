@@ -55,33 +55,29 @@ func (this *Module) Configure(value Any) {
 		return
 	}
 
-	var global Map
-	if cfg, ok := value.(Map); ok {
-		global = cfg
-	} else {
+	var config Map
+	if global, ok := value.(Map); ok {
+		if vvv, ok := global["data"].(Map); ok {
+			config = vvv
+		}
+	}
+	if config == nil {
 		return
 	}
 
-	var config Map
-	if vvv, ok := global["data"].(Map); ok {
-		config = vvv
-	}
-
 	//记录上一层的配置，如果有的话
-	defConfig := Map{}
+	rootConfig := Map{}
 
 	for key, val := range config {
 		if conf, ok := val.(Map); ok {
-			//直接注册，然后删除当前key
 			this.configure(key, conf)
 		} else {
-			//记录上一层的配置，如果有的话
-			defConfig[key] = val
+			rootConfig[key] = val
 		}
 	}
 
-	if len(defConfig) > 0 {
-		this.configure(chef.DEFAULT, defConfig)
+	if len(rootConfig) > 0 {
+		this.configure(chef.DEFAULT, rootConfig)
 	}
 }
 func (this *Module) Initialize() {
