@@ -1,7 +1,7 @@
 package data
 
 const (
-	NAME = "data"
+	NAME = "DATA"
 )
 
 const (
