@@ -9,6 +9,7 @@ const (
 	ChangeTrigger  = "$.data.change"
 	RemoveTrigger  = "$.data.remove"
 	RecoverTrigger = "$.data.recover"
+	//
 )
 
 var (
