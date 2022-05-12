@@ -55,6 +55,46 @@ type (
 	}
 )
 
+// Driver 注册驱动
+func (module *Module) Driver(name string, driver Driver, override bool) {
+	module.mutex.Lock()
+	defer module.mutex.Unlock()
+
+	if driver == nil {
+		panic("Invalid cache driver: " + name)
+	}
+
+	if override {
+		module.drivers[name] = driver
+	} else {
+		if module.drivers[name] == nil {
+			module.drivers[name] = driver
+		}
+	}
+}
+
+func (this *Module) Config(name string, config Config, override bool) {
+	this.mutex.Lock()
+	defer this.mutex.Unlock()
+
+	if name == "" {
+		name = chef.DEFAULT
+	}
+
+	if override {
+		this.configs[name] = config
+	} else {
+		if _, ok := this.configs[name]; ok == false {
+			this.configs[name] = config
+		}
+	}
+}
+func (this *Module) Configs(config Configs, override bool) {
+	for key, val := range config {
+		this.Config(key, val, override)
+	}
+}
+
 //Instance
 func (this *Module) Instance(names ...string) Instance {
 	if len(names) > 0 {

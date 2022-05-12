@@ -9,6 +9,10 @@ func (this *Module) Register(key string, value Any, override bool) {
 	switch val := value.(type) {
 	case Driver:
 		module.Driver(key, val, override)
+	case Config:
+		module.Config(key, val, override)
+	case Configs:
+		module.Configs(key, val, override)
 	case Table:
 		module.Table(key, val, override)
 	case View:
