@@ -49,21 +49,10 @@ func (this *Module) configure(name string, config Map) {
 	//保存配置
 	this.configs[name] = cfg
 }
-func (this *Module) Configure(value Any) {
-	if cfg, ok := value.(Config); ok {
-		this.configs[chef.DEFAULT] = cfg
-		return
-	}
-	if cfg, ok := value.(map[string]Config); ok {
-		this.configs = cfg
-		return
-	}
-
+func (this *Module) Configure(global Map) {
 	var config Map
-	if global, ok := value.(Map); ok {
-		if vvv, ok := global["data"].(Map); ok {
-			config = vvv
-		}
+	if vvv, ok := global["data"].(Map); ok {
+		config = vvv
 	}
 	if config == nil {
 		return
