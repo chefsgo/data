@@ -42,7 +42,8 @@ type (
 		instances map[string]Instance
 	}
 
-	Config struct {
+	Configs map[string]Config
+	Config  struct {
 		Driver  string
 		Url     string
 		Serial  string

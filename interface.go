@@ -12,7 +12,7 @@ func (this *Module) Register(key string, value Any, override bool) {
 	case Config:
 		module.Config(key, val, override)
 	case Configs:
-		module.Configs(key, val, override)
+		module.Configs(val, override)
 	case Table:
 		module.Table(key, val, override)
 	case View:
