@@ -1,5 +1,7 @@
 package data
 
+import "errors"
+
 const (
 	NAME = "DATA"
 )
@@ -12,5 +14,5 @@ const (
 )
 
 var (
-// errInvalidDataConnection = errors.New("Invalid data connection.")
+	errInvalidDataConnection = errors.New("Invalid data connection.")
 )
